@@ -1,2 +1,5 @@
-console.log('This is the background page.');
-console.log('Put the background scripts here.');
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.type === 'LOG_MESSAGE') {
+      console.log(message.message);
+    }
+  });
