@@ -34,7 +34,12 @@ const Popup = () => {
         const codeTexts = [];
         for (let i = 0; i < codeBlocks.length; i++) {
           codeBlocks[i].style.border = '3px solid blue';
-          codeTexts.push(codeBlocks[i].outerHTML);
+          const codeElement = codeBlocks[i].outerHTML;
+          const language = 'unknown'
+          codeTexts.push({
+            language,
+            code: codeElement.innerText,
+          });
         }
         return codeTexts;
       },
