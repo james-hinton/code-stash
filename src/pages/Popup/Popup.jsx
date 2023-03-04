@@ -4,76 +4,72 @@ import './Popup.scss';
 const Popup = () => {
   const [code, setCode] = useState([]);
 
-  function searchCode() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const url = new URL(tabs[0].url);
-      let searchFunction = null;
-
-      if (url.hostname === 'stackoverflow.com') {
-        searchFunction = searchStackOverflowCode;
-      } else {
-        searchFunction = searchBasicCode;
-      }
-
-      searchFunction(tabs[0].id);
-    });
+  async function searchCode() {
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    const url = new URL(tabs[0].url);
+    let searchFunction = null;
+  
+    if (url.hostname === 'stackoverflow.com') {
+      searchFunction = searchStackOverflowCode;
+    } else {
+      searchFunction = searchBasicCode;
+    }
+  
+    const codeBlocks = await searchFunction(tabs[0].id);
+    console.log('Code blocks:', codeBlocks);
+    chrome.runtime.sendMessage({ type: 'LOG_MESSAGE', message: 'Code blocks found' });
+    chrome.runtime.sendMessage({ type: 'LOG_MESSAGE', message: codeBlocks });
   }
-
-  function searchBasicCode(tabId) {
+  
+  async function searchBasicCode(tabId) {
     chrome.runtime.sendMessage({
       type: 'LOG_MESSAGE',
       message: 'Searching Basic!',
     });
-
-    chrome.scripting
-      .executeScript({
-        target: { tabId },
-        function: function () {
-          const codeBlocks = document.getElementsByTagName('code');
-          const codeTexts = [];
-          for (let i = 0; i < codeBlocks.length; i++) {
-            codeBlocks[i].style.border = '3px solid blue';
-            codeTexts.push(codeBlocks[i].outerHTML);
-          }
-          return codeTexts;
-        },
-      })
-      .then(function (result) {
-        chrome.runtime.sendMessage({ type: 'LOG_MESSAGE', message: result });
-      });
+  
+    const result = await chrome.scripting.executeScript({
+      target: { tabId },
+      function: function () {
+        const codeBlocks = document.getElementsByTagName('code');
+        const codeTexts = [];
+        for (let i = 0; i < codeBlocks.length; i++) {
+          codeBlocks[i].style.border = '3px solid blue';
+          codeTexts.push(codeBlocks[i].outerHTML);
+        }
+        return codeTexts;
+      },
+    });
+    
+    return result[0];
   }
-
-  function searchStackOverflowCode(tabId) {
+  
+  async function searchStackOverflowCode(tabId) {
     chrome.runtime.sendMessage({
       type: 'LOG_MESSAGE',
       message: 'Running on stack overflow',
     });
-
-    chrome.scripting
-      .executeScript({
-        target: { tabId },
-        function: function () {
-          const codeBlocks = document.querySelectorAll('.s-code-block');
-          const codeTexts = [];
-          for (let i = 0; i < codeBlocks.length; i++) {
-            codeBlocks[i].style.border = '3px solid blue';
-            const codeElement = codeBlocks[i].getElementsByTagName('code')[0];
-            const language = 'unknown'
-            codeTexts.push({
-              language,
-              code: codeElement.innerText,
-            });
-          }
-          return codeTexts;
-        },
-      })
-      .then(function (result) {
-        chrome.runtime.sendMessage({
-          type: 'LOG_MESSAGE',
-          message: result[0].result,
-        });
-      });
+  
+    const result = await chrome.scripting.executeScript({
+      target: { tabId },
+      function: function () {
+        const codeBlocks = document.querySelectorAll('.s-code-block');
+        const codeTexts = [];
+        for (let i = 0; i < codeBlocks.length; i++) {
+          codeBlocks[i].style.border = '3px solid blue';
+          const codeElement = codeBlocks[i].getElementsByTagName('code')[0];
+          const language = 'unknown'
+          codeTexts.push({
+            language,
+            code: codeElement.innerText,
+          });
+        }
+        return codeTexts;
+      },
+    });
+    
+    return result[0];
   }
+  
 
   return (
     <div className="popup">
