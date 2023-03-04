@@ -1,11 +1,11 @@
 {
-  "name": "chrome-extension-boilerplate-react",
+  "name": "code-stash",
   "version": "5.0.4",
-  "description": "A chrome extension boilerplate built with React 18, Webpack 5, and Webpack Dev Server 4",
+  "description": "Code Stash is a Chrome extension for saving and organizing code snippets from the web. With Code Stash, you can easily save code snippets from Stack Overflow, GitHub, and other websites, and organize them into folders for easy access later.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lxieyang/chrome-extension-boilerplate-react.git"
+    "url": "https://github.com/james-hinton/code-stash"
   },
   "scripts": {
     "build": "node utils/build.js",
