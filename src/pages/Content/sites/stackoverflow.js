@@ -1,9 +1,6 @@
 import { addSaveButtonOnHover } from '../utils/utils.js';
 
-export async function searchStackOverflowCode() {
-  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-  const tabId = tabs[0].id;
-  
+export async function searchStackOverflowCode(tabId) {
   chrome.runtime.sendMessage({
     type: 'LOG_MESSAGE',
     message: 'Running on stack overflow',
