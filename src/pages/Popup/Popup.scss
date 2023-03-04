@@ -15,24 +15,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.popup-logo {
-  height: 30vmin;
-  pointer-events: none;
-  animation: App-logo-spin infinite 20s linear;
-
-}
-
-// Animations
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
