@@ -1,11 +1,7 @@
-// React imports
 import React, { useState } from 'react';
-
-// Custom imports
-import { searchCode } from '../Content/search';
-
-// Styling imports
 import './Popup.scss';
+
+import { searchCode } from '../Content/search';
 
 const Popup = () => {
   const [code, setCode] = useState([]);
