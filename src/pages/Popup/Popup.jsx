@@ -40,7 +40,7 @@ const Popup = () => {
       },
     });
     
-    return result[0];
+    return result[0].result;
   }
   
   async function searchStackOverflowCode(tabId) {
@@ -67,7 +67,7 @@ const Popup = () => {
       },
     });
     
-    return result[0];
+    return result[0].result;
   }
   
 
