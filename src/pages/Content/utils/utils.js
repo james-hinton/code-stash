@@ -1,15 +1,7 @@
 export function addSaveButtonOnHover(codeBlock) {
-  if (!codeBlock) {
-    console.error('Invalid code block:', codeBlock);
-    return;
-  }
-
-  console.log('Adding save button for code block:', codeBlock);
-
   codeBlock.addEventListener('mouseenter', function (event) {
     const target = event.target;
     if (!target) {
-      console.error('Invalid target element:', target);
       return;
     }
     target.style.position = 'relative';
@@ -25,7 +17,6 @@ export function addSaveButtonOnHover(codeBlock) {
   codeBlock.addEventListener('mouseleave', function (event) {
     const target = event.target;
     if (!target) {
-      console.error('Invalid target element:', target);
       return;
     }
     target.style.position = '';
