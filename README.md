@@ -18,11 +18,16 @@ Note: This project is still in development and is not yet available on the Chrom
 
 To get started with Code Stash, follow these steps:
 
-1. Clone the repository to your local machine
-2. Open Google Chrome and go to chrome://extensions
-3. Enable Developer Mode by clicking the toggle switch in the top right corner
-4. Click the "Load unpacked" button and select the folder containing the cloned repository
-5. Use the extension by highlighting and right-clicking on code snippets, or by visiting Stack Overflow and clicking the "Save Code Snippet" button.
+1. Check if your [Node.js](https://nodejs.org/) version is >= **18**.
+2. Clone this repository.
+3. Run `npm install` to install the dependencies.
+4. Run `npm start`
+5. Load your extension on Chrome following:
+   1. Access `chrome://extensions/`
+   2. Check `Developer mode`
+   3. Click on `Load unpacked extension`
+   4. Select the `build` folder.
+6. Happy hacking.
 
 ## Contributing
 
